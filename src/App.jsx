@@ -1,9 +1,11 @@
-import Logo from './components/Header/components/Logo/Logo';
+import CourseCard from './components/Courses/components/CourseCard/CourseCard';
+import Header from './components/Header/Header';
 
 function App() {
 	return (
 		<div>
-			<Logo></Logo>
+			<Header></Header>
+			<CourseCard></CourseCard>
 		</div>
 	);
 }
