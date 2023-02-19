@@ -1,0 +1,10 @@
+table {
+  width: 100%;
+}
+
+.overflow {
+  max-width: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

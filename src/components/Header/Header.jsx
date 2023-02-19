@@ -1,6 +1,6 @@
 import React from 'react';
 import Logo from './components/Logo/Logo';
-import Button from '../../common/Button/Button';
+import Button from 'common/Button/Button';
 
 const Header = (props) => {
 	return (
@@ -10,8 +10,11 @@ const Header = (props) => {
 					<Logo></Logo>
 				</a>
 				<div className='d-flex justify-content-end'>
-					<div className='navbar-brand'>Dave</div>
-					<Button buttonText='Logout'></Button>
+					<div className='navbar-brand'>Dave 🗿</div>
+					<Button
+						buttonText='Logout'
+						className='btn btn-outline-secondary'
+					></Button>
 				</div>
 			</div>
 		</nav>

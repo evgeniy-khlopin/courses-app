@@ -1,14 +1,17 @@
-import CourseCard from './components/Courses/components/CourseCard/CourseCard';
+import Courses from './components/Courses/Courses';
 import Header from './components/Header/Header';
 import * as Constants from './constants';
 
 function App() {
 	return (
 		<div>
-			<Header></Header>
-			{Constants.mockedCoursesList.map((course, index) => (
-				<CourseCard courseData={course} key={index}></CourseCard>
-			))}
+			<div className='mb-2'>
+				<Header></Header>
+			</div>
+			<Courses
+				authorsList={Constants.mockedAuthorsList}
+				coursesList={Constants.mockedCoursesList}
+			></Courses>
 		</div>
 	);
 }
