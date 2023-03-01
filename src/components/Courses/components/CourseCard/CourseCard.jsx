@@ -1,20 +1,8 @@
 import React from 'react';
 import Button from 'common/Button/Button';
-import { format } from 'date-fns';
 import './CourseCard.css';
-
-const convertDate = function (date) {
-	return format(new Date(date), 'dd.MM.yyyy');
-};
-
-const convertDuration = function (minutes) {
-	const date = new Date(0);
-	date.setMinutes(minutes);
-	const timeString = date.toISOString().substring(11, 16);
-	const hours = Number(timeString.split(':')[0]) > 1 ? 'hours' : 'hour';
-
-	return `${timeString} ${hours}`;
-};
+import { convertDuration } from 'helpers/getCourseDuration';
+import { format } from 'date-fns';
 
 const authorNamesByIds = function (authorsList, authorIds) {
 	const authors = authorsList.filter((author) => authorIds.includes(author.id));
@@ -56,7 +44,12 @@ const CourseCard = (props) => {
 									<td>
 										<b>Created:</b>
 									</td>
-									<td>{convertDate(props.courseData.creationDate)}</td>
+									<td>
+										{format(
+											new Date(props.courseData.creationDate),
+											'dd.MM.yyyy'
+										)}
+									</td>
 								</tr>
 							</tbody>
 						</table>

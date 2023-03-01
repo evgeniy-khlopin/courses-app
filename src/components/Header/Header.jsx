@@ -14,6 +14,7 @@ const Header = (props) => {
 					<Button
 						buttonText='Logout'
 						className='btn btn-outline-secondary'
+						onClick={props.handleToggle}
 					></Button>
 				</div>
 			</div>
