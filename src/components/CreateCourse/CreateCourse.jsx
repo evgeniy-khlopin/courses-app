@@ -62,7 +62,7 @@ const CreateCourse = (props) => {
 		updatedCourse.creationDate = format(new Date(), 'dd/MM/yyyy');
 		if (validateCourse(updatedCourse)) {
 			props.updateCoursesList((prevState) => [...prevState, updatedCourse]);
-			props.handleToggle();
+			props.handleToggle(true);
 		}
 	};
 

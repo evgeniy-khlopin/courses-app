@@ -4,18 +4,18 @@ import Input from 'common/Input/Input';
 
 const SearchBar = (props) => {
 	// TODO: Think about a better state variable name for the search value
-	const [value, setValue] = useState('');
+	const [searchQuery, setSearchQuery] = useState('');
 
 	const handleChange = function (event) {
 		event.preventDefault();
 		// Submit empty form without clicking the search button
 		if (event.target.value === '') props.onSearch('');
-		setValue(event.target.value);
+		setSearchQuery(event.target.value);
 	};
 
 	const handleSubmit = function (event) {
 		event.preventDefault();
-		props.onSearch(value);
+		props.onSearch(searchQuery);
 	};
 
 	return (
@@ -23,11 +23,11 @@ const SearchBar = (props) => {
 			<Input
 				className='form-control me-2'
 				type='search'
-				placeholder='Search'
+				placeholderText='Search by name or id'
 				aria-label='Search'
 				onChange={handleChange}
 			></Input>
-			<Button className='btn btn-outline-success' buttonText='Search'></Button>
+			<Button className='btn btn-success' buttonText='Search'></Button>
 		</form>
 	);
 };

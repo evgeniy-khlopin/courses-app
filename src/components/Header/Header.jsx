@@ -4,11 +4,11 @@ import Button from 'common/Button/Button';
 
 const Header = (props) => {
 	return (
-		<nav className='navbar navbar-expand-lg navbar-light bg-light'>
+		<nav className='navbar navbar-expand-lg bg-body-tertiary'>
 			<div className='container-fluid'>
-				<Logo onClick={props.handleToggle}></Logo>
+				<Logo onClick={() => props.handleToggle(true)}></Logo>
 				<div className='d-flex justify-content-end'>
-					<div className='navbar-brand'>Dave 🗿</div>
+					<div className='navbar-brand'>Dave 🫡</div>
 					<Button
 						buttonText='Logout'
 						className='btn btn-outline-secondary'

@@ -13,12 +13,13 @@ const CourseCard = (props) => {
 	return (
 		<div className='card'>
 			<div className='d-flex'>
-				<div className='col-md-9'>
+				<div className='col-md-9 bg-body-tertiary'>
 					<div className='card-body'>
 						<h5 className='card-title'>{props.courseData.title}</h5>
 						<p className='card-text'>{props.courseData.description}</p>
 					</div>
 				</div>
+				<div className='vr'></div>
 				<div className='col-md-3'>
 					<div className='card-body'>
 						<table className='mb-2'>
@@ -55,10 +56,7 @@ const CourseCard = (props) => {
 						</table>
 
 						<div className='d-flex justify-content-center'>
-							<Button
-								buttonText='Show Course'
-								className='btn btn-outline-primary'
-							></Button>
+							<Button buttonText='Show Course'></Button>
 						</div>
 					</div>
 				</div>

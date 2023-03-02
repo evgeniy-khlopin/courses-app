@@ -8,11 +8,12 @@ const Courses = (props) => {
 
 	const searchSubmitHandler = (value) => setSearchValue(value);
 
-	// TODO: prevent searchCourse from being called twice
 	const searchCourse = function () {
 		if (searchValue === '') return props.coursesList;
-		return props.coursesList.filter((course) =>
-			course.title.toLowerCase().includes(searchValue.toLowerCase())
+		return props.coursesList.filter(
+			(course) =>
+				course.title.toLowerCase().includes(searchValue.toLowerCase()) ||
+				course.id.toLowerCase().includes(searchValue.toLowerCase())
 		);
 	};
 
@@ -20,20 +21,18 @@ const Courses = (props) => {
 
 	return (
 		<>
-			<nav className='navbar mb-2'>
-				<div className='container-fluid'>
+			<div className='container-fluid'>
+				<nav className='navbar mb-4 border-bottom pb-3'>
 					<SearchBar onSearch={searchSubmitHandler}></SearchBar>
 					<div className='d-flex'>
 						<Button
 							buttonText='Add new course'
-							onClick={props.handleToggle}
+							onClick={() => props.handleToggle(false)}
 						></Button>
 					</div>
-				</div>
-			</nav>
-			<div className='container-fluid'>
+				</nav>
 				{searchCourse().map((course, index) => (
-					<div className='mb-2' key={index}>
+					<div className='mb-3' key={index}>
 						<CourseCard
 							courseData={course}
 							authorsList={props.authorsList}

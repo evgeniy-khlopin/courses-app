@@ -17,30 +17,32 @@ function App() {
 		setAuthorsList(authors);
 	};
 
-	const handleToggle = function () {
-		setShowCourses((prevState) => !prevState);
+	const handleToggle = function (value) {
+		setShowCourses(value);
 	};
 
 	return (
-		<div data-bs-theme='dark'>
+		<div>
 			<div className='mb-2'>
 				<Header handleToggle={handleToggle}></Header>
 			</div>
-			{showCourses ? (
-				<Courses
-					authorsList={constants.mockedAuthorsList}
-					coursesList={coursesList}
-					handleToggle={handleToggle}
-				></Courses>
-			) : (
-				<CreateCourse
-					coursesList={coursesList}
-					authorsList={authorsList}
-					updateCoursesList={updateCoursesList}
-					updateAuthorsList={updateAuthorsList}
-					handleToggle={handleToggle}
-				></CreateCourse>
-			)}
+			<div className='col-md-8 mx-auto'>
+				{showCourses ? (
+					<Courses
+						authorsList={constants.mockedAuthorsList}
+						coursesList={coursesList}
+						handleToggle={handleToggle}
+					></Courses>
+				) : (
+					<CreateCourse
+						coursesList={coursesList}
+						authorsList={authorsList}
+						updateCoursesList={updateCoursesList}
+						updateAuthorsList={updateAuthorsList}
+						handleToggle={handleToggle}
+					></CreateCourse>
+				)}
+			</div>
 		</div>
 	);
 }
