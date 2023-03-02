@@ -22,7 +22,7 @@ function App() {
 	};
 
 	return (
-		<div>
+		<div data-bs-theme='dark'>
 			<div className='mb-2'>
 				<Header handleToggle={handleToggle}></Header>
 			</div>

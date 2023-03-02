@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'common/Button/Button';
-import './CourseCard.css';
+import './CourseCard.scss';
 import { convertDuration } from 'helpers/getCourseDuration';
 import { format } from 'date-fns';
 

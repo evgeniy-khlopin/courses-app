@@ -2,6 +2,11 @@ table {
   width: 100%;
 }
 
+tr td:first-child {
+  width: 1%;
+  white-space: nowrap;
+}
+
 .overflow {
   max-width: 0;
   text-overflow: ellipsis;
