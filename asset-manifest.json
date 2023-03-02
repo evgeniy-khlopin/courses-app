@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/courses-app/static/css/main.f0febca0.css",
+    "main.js": "/courses-app/static/js/main.2b04bb3f.js",
+    "static/media/bootstrap-icons.woff?": "/courses-app/static/media/bootstrap-icons.6959d0d983ee318f8880.woff",
+    "static/media/bootstrap-icons.woff2?": "/courses-app/static/media/bootstrap-icons.b2e5aab643c6f0fd2da6.woff2",
+    "index.html": "/courses-app/index.html",
+    "main.f0febca0.css.map": "/courses-app/static/css/main.f0febca0.css.map",
+    "main.2b04bb3f.js.map": "/courses-app/static/js/main.2b04bb3f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f0febca0.css",
+    "static/js/main.2b04bb3f.js"
+  ]
+}
