@@ -6,8 +6,6 @@ import { convertDuration } from 'helpers/getCourseDuration';
 import { format } from 'date-fns';
 
 const CreateCourse = (props) => {
-	const [availableAuthors, setAvailableAuthors] = useState(props.authorsList);
-	const [allAuthors, setAllAuthors] = useState(props.authorsList);
 	const [authorName, setAuthorName] = useState('');
 	const [course, setCourse] = useState({
 		id: '',
@@ -18,9 +16,13 @@ const CreateCourse = (props) => {
 		authors: [],
 	});
 
+	const availableAuthors = function () {
+		return props.authorsList.filter(
+			(author) => !course.authors.includes(author.id)
+		);
+	};
+
 	const handleAddAuthor = function (author) {
-		setAvailableAuthors(availableAuthors.filter((a) => a !== author));
-		setAllAuthors([...allAuthors, author]);
 		setCourse((prevState) => ({
 			...prevState,
 			authors: [...prevState.authors, author.id],
@@ -28,7 +30,6 @@ const CreateCourse = (props) => {
 	};
 
 	const handleRemoveAuthor = function (author) {
-		setAvailableAuthors((prevState) => [...prevState, author]);
 		setCourse((prevState) => ({
 			...prevState,
 			authors: [...prevState.authors.filter((a) => a !== author.id)],
@@ -61,6 +62,7 @@ const CreateCourse = (props) => {
 		updatedCourse.creationDate = format(new Date(), 'dd/MM/yyyy');
 		if (validateCourse(updatedCourse)) {
 			props.updateCoursesList((prevState) => [...prevState, updatedCourse]);
+			props.handleToggle();
 		}
 	};
 
@@ -78,8 +80,8 @@ const CreateCourse = (props) => {
 
 	const handleAuthorSubmit = function () {
 		if (authorName.length > 2) {
-			const newAuthor = { id: crypto.randomUUID(), name: authorName };
-			setAvailableAuthors((prev) => [...prev, newAuthor]);
+			const updatedAuthor = { id: crypto.randomUUID(), name: authorName };
+			props.updateAuthorsList([...props.authorsList, updatedAuthor]);
 			setAuthorName('');
 		} else {
 			alert('Author name should be at least 2 characters');
@@ -137,8 +139,8 @@ const CreateCourse = (props) => {
 
 					<div className='d-flex flex-column col-md-4'>
 						<h4 className='d-flex justify-content-center'>Authors</h4>
-						{availableAuthors.length > 0 ? (
-							availableAuthors.map((author, index) => (
+						{availableAuthors().length > 0 ? (
+							availableAuthors().map((author, index) => (
 								<div className='mb-2' key={index}>
 									<AuthorItem
 										author={author}
@@ -175,7 +177,7 @@ const CreateCourse = (props) => {
 						<h4 className='d-flex justify-content-center'>Course authors</h4>
 						{course.authors.length > 0 ? (
 							course.authors.map((authorId, index) => {
-								const author = allAuthors.find(
+								const author = props.authorsList.find(
 									(author) => author.id === authorId
 								);
 								return (

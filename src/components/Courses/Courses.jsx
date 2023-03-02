@@ -24,7 +24,10 @@ const Courses = (props) => {
 				<div className='container-fluid'>
 					<SearchBar onSearch={searchSubmitHandler}></SearchBar>
 					<div className='d-flex'>
-						<Button buttonText='Add new course'></Button>
+						<Button
+							buttonText='Add new course'
+							onClick={props.handleToggle}
+						></Button>
 					</div>
 				</div>
 			</nav>

@@ -6,15 +6,12 @@ const Header = (props) => {
 	return (
 		<nav className='navbar navbar-expand-lg navbar-light bg-light'>
 			<div className='container-fluid'>
-				<a href='/'>
-					<Logo></Logo>
-				</a>
+				<Logo onClick={props.handleToggle}></Logo>
 				<div className='d-flex justify-content-end'>
 					<div className='navbar-brand'>Dave 🗿</div>
 					<Button
 						buttonText='Logout'
 						className='btn btn-outline-secondary'
-						onClick={props.handleToggle}
 					></Button>
 				</div>
 			</div>
