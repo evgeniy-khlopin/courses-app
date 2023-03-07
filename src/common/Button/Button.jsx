@@ -1,15 +1,9 @@
 import React from 'react';
 
-const Button = (props) => {
-	const className = props.className || 'btn btn-primary';
-
-	return (
-		<div>
-			<button className={className} onClick={props.onClick}>
-				{props.buttonText}
-			</button>
-		</div>
-	);
-};
+const Button = ({ buttonText, onClick, className = 'btn btn-primary' }) => (
+	<button className={className} onClick={onClick}>
+		{buttonText}
+	</button>
+);
 
 export default Button;

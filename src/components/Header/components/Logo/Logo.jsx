@@ -1,17 +1,13 @@
 import React from 'react';
 
-const Logo = (props) => {
-	return (
-		<>
-			<img
-				src='./logo.webp'
-				alt='logo'
-				height='50'
-				style={{ cursor: 'pointer' }}
-				onClick={props.onClick}
-			></img>
-		</>
-	);
-};
+const Logo = ({ onClick }) => (
+	<img
+		src='/logo.webp'
+		alt='logo'
+		height='50'
+		style={{ cursor: 'pointer' }}
+		onClick={onClick}
+	/>
+);
 
 export default Logo;

@@ -4,27 +4,27 @@ import Courses from './components/Courses/Courses';
 import Header from './components/Header/Header';
 import * as constants from './constants';
 
-function App() {
+const App = () => {
 	const [coursesList, setCoursesList] = useState(constants.mockedCoursesList);
 	const [authorsList, setAuthorsList] = useState(constants.mockedAuthorsList);
 	const [showCourses, setShowCourses] = useState(true);
 
-	const updateCoursesList = function (courses) {
+	const updateCoursesList = (courses) => {
 		setCoursesList(courses);
 	};
 
-	const updateAuthorsList = function (authors) {
+	const updateAuthorsList = (authors) => {
 		setAuthorsList(authors);
 	};
 
-	const handleToggle = function (value) {
+	const handleToggle = (value) => {
 		setShowCourses(value);
 	};
 
 	return (
-		<div>
+		<>
 			<div className='mb-2'>
-				<Header handleToggle={handleToggle}></Header>
+				<Header handleToggle={handleToggle} />
 			</div>
 			<div className='col-md-8 mx-auto'>
 				{showCourses ? (
@@ -32,7 +32,7 @@ function App() {
 						authorsList={constants.mockedAuthorsList}
 						coursesList={coursesList}
 						handleToggle={handleToggle}
-					></Courses>
+					/>
 				) : (
 					<CreateCourse
 						coursesList={coursesList}
@@ -40,11 +40,11 @@ function App() {
 						updateCoursesList={updateCoursesList}
 						updateAuthorsList={updateAuthorsList}
 						handleToggle={handleToggle}
-					></CreateCourse>
+					/>
 				)}
 			</div>
-		</div>
+		</>
 	);
-}
+};
 
 export default App;

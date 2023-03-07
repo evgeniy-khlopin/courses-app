@@ -1,4 +1,4 @@
-export const convertDuration = function (minutes) {
+export const convertDuration = (minutes) => {
 	const date = new Date(0);
 	date.setMinutes(minutes);
 	const timeString = date.toISOString().substring(11, 16);
