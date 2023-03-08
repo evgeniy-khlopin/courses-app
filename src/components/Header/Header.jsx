@@ -1,11 +1,14 @@
 import React from 'react';
 import Logo from './components/Logo/Logo';
 import Button from 'common/Button/Button';
+import { Link } from 'react-router-dom';
 
 const Header = ({ handleToggle }) => (
 	<nav className='navbar navbar-expand-lg bg-body-tertiary'>
 		<div className='container-fluid'>
-			<Logo onClick={() => handleToggle(true)} />
+			<Link to='/'>
+				<Logo />
+			</Link>
 			<div className='d-flex justify-content-end'>
 				<div className='navbar-brand'>Dave 🫡</div>
 				<Button buttonText='Logout' className='btn btn-outline-secondary' />
