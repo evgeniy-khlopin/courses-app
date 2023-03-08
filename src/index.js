@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './App';
 import Registration from './components/Registration/Registration';
+import Login from './components/Login/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -14,6 +15,7 @@ root.render(
 		<React.StrictMode>
 			<Routes>
 				<Route path='/' element={<App />} />
+				<Route path='/login' element={<Login />} />
 				<Route path='/registration' element={<Registration />} />
 			</Routes>
 		</React.StrictMode>

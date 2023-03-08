@@ -10,7 +10,7 @@ const Header = ({ handleToggle }) => (
 				<Logo />
 			</Link>
 			<div className='d-flex justify-content-end'>
-				<div className='navbar-brand'>Dave 🫡</div>
+				<div className='navbar-brand'>{localStorage.getItem('userName')} 🫡</div>
 				<Button buttonText='Logout' className='btn btn-outline-secondary' />
 			</div>
 		</div>

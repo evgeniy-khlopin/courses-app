@@ -4,10 +4,9 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
-const Registration = (props) => {
+const Login = (props) => {
 	const navigate = useNavigate();
-	const [userData, setUserData] = useState({
-		name: '',
+	const [loginData, setLoginData] = useState({
 		email: '',
 		password: '',
 	});
@@ -15,41 +14,36 @@ const Registration = (props) => {
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
 
-		setUserData({ ...userData, [name]: value });
+		setLoginData({ ...loginData, [name]: value });
 	};
 
 	const handleSubmit = async (event) => {
+		event.preventDefault();
 		const response = await fetch(
-			`${process.env.REACT_APP_API_BASE_URL}/register`,
+			`${process.env.REACT_APP_API_BASE_URL}/login`,
 			{
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify(userData),
+				body: JSON.stringify(loginData),
 			}
 		);
 		const json = await response.json();
 		if (json.successful) {
-			navigate('/login');
+			localStorage.setItem('bearerToken', json.result);
+			localStorage.setItem('userName', json.user.name);
+			navigate('/');
 		} else {
-			alert('Something went wrong');
+			alert('Wrong email or password');
 		}
 	};
 
 	return (
 		<div className='card col-md-3 d-flex mx-auto'>
-			<div className='card-header'>Registration</div>
+			<div className='card-header'>Login</div>
 			<div className='card-body'>
 				<form>
-					<div className='mb-3'>
-						<Input
-							name='name'
-							labelText='Name'
-							placeholderText='Enter name'
-							onChange={handleInputChange}
-						></Input>
-					</div>
 					<div className='mb-3'>
 						<Input
 							name='email'
@@ -71,13 +65,14 @@ const Registration = (props) => {
 				</form>
 				<Button buttonText='Sign up' onClick={handleSubmit}></Button>
 				<p className='small mt-2'>
-					Already have an account? <Link to='/login'>Login</Link>
+					Don't have an account yet? Sign up{' '}
+					<Link to='/registration'>here</Link>
 				</p>
 			</div>
 		</div>
 	);
 };
 
-// Registration.propTypes = {};
+// Login.propTypes = {};
 
-export default Registration;
+export default Login;
