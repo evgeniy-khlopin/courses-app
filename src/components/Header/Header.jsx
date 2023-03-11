@@ -3,7 +3,7 @@ import Logo from './components/Logo/Logo';
 import Button from 'common/Button/Button';
 import { Link } from 'react-router-dom';
 
-const Header = ({ handleToggle }) => (
+const Header = () => (
 	<nav className='navbar navbar-expand-lg bg-body-tertiary'>
 		<div className='container-fluid'>
 			<Link to='/'>

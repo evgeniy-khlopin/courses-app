@@ -33,7 +33,7 @@ const Registration = (props) => {
 		if (json.successful) {
 			navigate('/login');
 		} else {
-			alert('Something went wrong');
+			alert('Please check your data');
 		}
 	};
 

@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import CourseCard from './components/CourseCard/CourseCard';
 import Button from 'common/Button/Button';
 import SearchBar from './components/SearchBar/SearchBar';
+import { Link } from 'react-router-dom';
 
-const Courses = ({ coursesList, authorsList, handleToggle }) => {
+const Courses = ({ coursesList, authorsList }) => {
 	const [searchValue, setSearchValue] = useState('');
 
 	const searchSubmitHandler = (value) => setSearchValue(value);
@@ -22,10 +23,9 @@ const Courses = ({ coursesList, authorsList, handleToggle }) => {
 			<nav className='navbar mb-4 border-bottom pb-3'>
 				<SearchBar onSearch={searchSubmitHandler} />
 				<div className='d-flex'>
-					<Button
-						buttonText='Add new course'
-						onClick={() => handleToggle(false)}
-					/>
+					<Link to='/courses/add'>
+						<Button buttonText='Add new course' />
+					</Link>
 				</div>
 			</nav>
 			{searchCourse().map((course, index) => (

@@ -4,13 +4,14 @@ import React, { useState } from 'react';
 import AuthorItem from './components/AuthorItem/AuthorItem';
 import { convertDuration } from 'helpers/getCourseDuration';
 import { format } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 
 const CreateCourse = ({
 	authorsList,
 	updateAuthorsList,
 	updateCoursesList,
-	handleToggle,
 }) => {
+	const navigate = useNavigate();
 	const [authorName, setAuthorName] = useState('');
 	const [course, setCourse] = useState({
 		id: '',
@@ -65,7 +66,7 @@ const CreateCourse = ({
 		updatedCourse.creationDate = format(new Date(), 'dd/MM/yyyy');
 		if (validateCourse(updatedCourse)) {
 			updateCoursesList((prevState) => [...prevState, updatedCourse]);
-			handleToggle(true);
+			navigate('/courses');
 		}
 	};
 
@@ -90,7 +91,7 @@ const CreateCourse = ({
 	};
 
 	return (
-		<div className='container-fluid'>
+		<div className='col-md-8 mx-auto'>
 			<div className='d-flex align-items-end mb-2'>
 				<div className='me-auto'>
 					<Input

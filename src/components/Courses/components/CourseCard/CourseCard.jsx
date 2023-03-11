@@ -3,6 +3,7 @@ import Button from 'common/Button/Button';
 import './CourseCard.scss';
 import { convertDuration } from 'helpers/getCourseDuration';
 import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 const authorNamesByIds = (authorsList, authorIds) => {
 	const authors = authorsList.filter((author) => authorIds.includes(author.id));
@@ -49,7 +50,9 @@ const CourseCard = ({ courseData, authorsList }) => (
 					</table>
 
 					<div className='d-flex justify-content-center'>
-						<Button buttonText='Show Course' />
+						<Link to={`/courses/${courseData.id}`}>
+							<Button buttonText='Show Course' />
+						</Link>
 					</div>
 				</div>
 			</div>
