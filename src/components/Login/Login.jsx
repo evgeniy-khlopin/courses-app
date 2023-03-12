@@ -1,6 +1,6 @@
 import Input from 'common/Input/Input';
 import Button from 'common/Button/Button';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
@@ -18,7 +18,6 @@ const Login = (props) => {
 	};
 
 	const handleSubmit = async (event) => {
-		event.preventDefault();
 		const response = await fetch(
 			`${process.env.REACT_APP_API_BASE_URL}/login`,
 			{
@@ -39,8 +38,21 @@ const Login = (props) => {
 		}
 	};
 
+	useEffect(() => {
+		const listener = (event) => {
+			if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+				event.preventDefault();
+				handleSubmit();
+			}
+		};
+		document.addEventListener('keydown', listener);
+		return () => {
+			document.removeEventListener('keydown', listener);
+		};
+	});
+
 	return (
-		<div className='card col-md-3 d-flex mx-auto'>
+		<div className='card col-md-3 d-flex mx-auto mt-5'>
 			<div className='card-header'>Login</div>
 			<div className='card-body'>
 				<form>
@@ -63,8 +75,10 @@ const Login = (props) => {
 						></Input>
 					</div>
 				</form>
-				<Button buttonText='Sign up' onClick={handleSubmit}></Button>
-				<p className='small mt-2'>
+				<div className='d-grid col-6 mx-auto'>
+					<Button buttonText='Sign in'></Button>
+				</div>
+				<p className='small mt-2 text-center'>
 					Don't have an account yet? Sign up{' '}
 					<Link to='/registration'>here</Link>
 				</p>
