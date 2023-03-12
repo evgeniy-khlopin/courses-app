@@ -3,8 +3,8 @@ import Button from 'common/Button/Button';
 import React, { useState } from 'react';
 import AuthorItem from './components/AuthorItem/AuthorItem';
 import { convertDuration } from 'helpers/getCourseDuration';
-import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
+import { formatDate } from 'helpers/formatDate';
 
 const CreateCourse = ({
 	authorsList,
@@ -63,7 +63,7 @@ const CreateCourse = ({
 	const handleCourseSubmit = () => {
 		const updatedCourse = course;
 		updatedCourse.id = crypto.randomUUID();
-		updatedCourse.creationDate = format(new Date(), 'dd/MM/yyyy');
+		updatedCourse.creationDate = formatDate(new Date(), '/');
 		if (validateCourse(updatedCourse)) {
 			updateCoursesList((prevState) => [...prevState, updatedCourse]);
 			navigate('/courses');

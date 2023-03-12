@@ -2,13 +2,9 @@ import React from 'react';
 import Button from 'common/Button/Button';
 import './CourseCard.scss';
 import { convertDuration } from 'helpers/getCourseDuration';
-import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
-
-const authorNamesByIds = (authorsList, authorIds) => {
-	const authors = authorsList.filter((author) => authorIds.includes(author.id));
-	return authors.map((author) => author.name).join(', ');
-};
+import { formatDate } from 'helpers/formatDate';
+import { getAuthorNames } from 'helpers/getAuthorNames';
 
 const CourseCard = ({ courseData, authorsList }) => (
 	<div className='card'>
@@ -29,7 +25,7 @@ const CourseCard = ({ courseData, authorsList }) => (
 									<b>Author:</b>
 								</td>
 								<td className='overflow'>
-									{authorNamesByIds(authorsList, courseData.authors)}
+									{getAuthorNames(authorsList, courseData.authors)}
 								</td>
 							</tr>
 							<tr>
@@ -42,9 +38,7 @@ const CourseCard = ({ courseData, authorsList }) => (
 								<td>
 									<b>Created:</b>
 								</td>
-								<td>
-									{format(new Date(courseData.creationDate), 'dd.MM.yyyy')}
-								</td>
+								<td>{formatDate(courseData.creationDate)}</td>
 							</tr>
 						</tbody>
 					</table>

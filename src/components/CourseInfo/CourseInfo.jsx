@@ -1,3 +1,6 @@
+import { formatDate } from 'helpers/formatDate';
+import { getAuthorNames } from 'helpers/getAuthorNames';
+import { convertDuration } from 'helpers/getCourseDuration';
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 // import PropTypes from 'prop-types';
@@ -5,13 +8,6 @@ import { Link, useParams } from 'react-router-dom';
 const CourseInfo = ({ coursesList, authorsList }) => {
 	const { courseId } = useParams();
 	const [course] = useState(coursesList.find((c) => c.id === courseId));
-
-	const authorNamesByIds = (authorsList, authorIds) => {
-		const authors = authorsList.filter((author) =>
-			authorIds.includes(author.id)
-		);
-		return authors.map((author) => author.name).join(', ');
-	};
 
 	return (
 		<div className='row'>
@@ -33,19 +29,19 @@ const CourseInfo = ({ coursesList, authorsList }) => {
 						<div className='row'>
 							<div>
 								<b>Authors: </b>
-								{authorNamesByIds(authorsList, course.authors)}
+								{getAuthorNames(authorsList, course.authors)}
 							</div>
 						</div>
 						<div className='row'>
 							<div>
 								<b>Duration: </b>
-								{course.duration}
+								{convertDuration(course.duration)}
 							</div>
 						</div>
 						<div className='row'>
 							<div>
 								<b>Created: </b>
-								{course.creationDate}
+								{formatDate(course.creationDate)}
 							</div>
 						</div>
 					</div>

@@ -65,12 +65,13 @@ const App = () => {
 							path='/courses/:courseId'
 							element={
 								<CourseInfo
-									coursesList={constants.mockedCoursesList}
-									authorsList={constants.mockedAuthorsList}
+									coursesList={coursesList}
+									authorsList={authorsList}
 								/>
 							}
 						/>
 					</Route>
+					<Route path='*' element={<p>There's nothing here: 404!</p>} />
 				</Routes>
 			</BrowserRouter>
 		</>
