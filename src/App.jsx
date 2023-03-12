@@ -6,7 +6,7 @@ import * as constants from './constants';
 import Registration from './components/Registration/Registration';
 import Login from './components/Login/Login';
 import CourseInfo from 'components/CourseInfo/CourseInfo';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 const App = () => {
 	const [coursesList, setCoursesList] = useState(constants.mockedCoursesList);
@@ -23,8 +23,13 @@ const App = () => {
 	return (
 		<>
 			<BrowserRouter>
+				<div className='mb-2'>
+					<Header />
+				</div>
+
 				<Routes>
-					<Route path='/' element={<App />} />
+					{/* <Navigate exact from='/' to='/courses' /> */}
+					<Route path='/' element={<Navigate to='/courses' />} />
 					<Route path='/login' element={<Login />} />
 					<Route path='/registration' element={<Registration />} />
 					<Route
@@ -48,7 +53,7 @@ const App = () => {
 						}
 					/>
 					<Route
-						path='/courses/:id'
+						path='/courses/:courseId'
 						element={
 							<CourseInfo
 								coursesList={constants.mockedCoursesList}
@@ -59,29 +64,6 @@ const App = () => {
 				</Routes>
 			</BrowserRouter>
 		</>
-
-		// <>
-		// 	<div className='mb-2'>
-		// 		<Header handleToggle={handleToggle} />
-		// 	</div>
-		// 	<div className='col-md-8 mx-auto'>
-		// 		{showCourses ? (
-		// 			<Courses
-		// 				authorsList={constants.mockedAuthorsList}
-		// 				coursesList={coursesList}
-		// 				handleToggle={handleToggle}
-		// 			/>
-		// 		) : (
-		// 			<CreateCourse
-		// 				coursesList={coursesList}
-		// 				authorsList={authorsList}
-		// 				updateCoursesList={updateCoursesList}
-		// 				updateAuthorsList={updateAuthorsList}
-		// 				handleToggle={handleToggle}
-		// 			/>
-		// 		)}
-		// 	</div>
-		// </>
 	);
 };
 

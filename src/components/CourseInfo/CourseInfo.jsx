@@ -3,8 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
 const CourseInfo = ({ coursesList, authorsList }) => {
-	const { id } = useParams();
-	const [course] = useState(coursesList.find((c) => c.id === id));
+	const { courseId } = useParams();
+	const [course] = useState(coursesList.find((c) => c.id === courseId));
 
 	const authorNamesByIds = (authorsList, authorIds) => {
 		const authors = authorsList.filter((author) =>
@@ -27,7 +27,7 @@ const CourseInfo = ({ coursesList, authorsList }) => {
 						<div className='row'>
 							<div>
 								<b>ID: </b>
-								{id}
+								{courseId}
 							</div>
 						</div>
 						<div className='row'>

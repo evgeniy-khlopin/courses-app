@@ -19,7 +19,7 @@ const Courses = ({ coursesList, authorsList }) => {
 	};
 
 	return (
-		<div className='container-fluid'>
+		<div className='container-fluid col-md-8'>
 			<nav className='navbar mb-4 border-bottom pb-3'>
 				<SearchBar onSearch={searchSubmitHandler} />
 				<div className='d-flex'>
