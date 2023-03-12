@@ -6,7 +6,10 @@ import * as constants from './constants';
 import Registration from './components/Registration/Registration';
 import Login from './components/Login/Login';
 import CourseInfo from 'components/CourseInfo/CourseInfo';
+import { userExists } from 'helpers/userHelper';
+
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import PrivateRoute from 'common/PrivateRoute/PrivateRoute';
 
 const App = () => {
 	const [coursesList, setCoursesList] = useState(constants.mockedCoursesList);
@@ -28,39 +31,46 @@ const App = () => {
 				</div>
 
 				<Routes>
-					{/* <Navigate exact from='/' to='/courses' /> */}
-					<Route path='/' element={<Navigate to='/courses' />} />
-					<Route path='/login' element={<Login />} />
-					<Route path='/registration' element={<Registration />} />
 					<Route
-						path='/courses'
 						element={
-							<Courses
-								authorsList={constants.mockedAuthorsList}
-								coursesList={coursesList}
-							/>
+							<PrivateRoute userExists={!userExists()} redirectPath='/' />
 						}
-					/>
-					<Route
-						path='/courses/add'
-						element={
-							<CreateCourse
-								coursesList={coursesList}
-								authorsList={authorsList}
-								updateCoursesList={updateCoursesList}
-								updateAuthorsList={updateAuthorsList}
-							/>
-						}
-					/>
-					<Route
-						path='/courses/:courseId'
-						element={
-							<CourseInfo
-								coursesList={constants.mockedCoursesList}
-								authorsList={constants.mockedAuthorsList}
-							/>
-						}
-					/>
+					>
+						<Route path='/login' element={<Login />} />
+						<Route path='/registration' element={<Registration />} />
+					</Route>
+					<Route element={<PrivateRoute userExists={userExists()} />}>
+						<Route path='/' element={<Navigate to='/courses' />} />
+						<Route
+							path='/courses'
+							element={
+								<Courses
+									authorsList={constants.mockedAuthorsList}
+									coursesList={coursesList}
+								/>
+							}
+						/>
+						<Route
+							path='/courses/add'
+							element={
+								<CreateCourse
+									coursesList={coursesList}
+									authorsList={authorsList}
+									updateCoursesList={updateCoursesList}
+									updateAuthorsList={updateAuthorsList}
+								/>
+							}
+						/>
+						<Route
+							path='/courses/:courseId'
+							element={
+								<CourseInfo
+									coursesList={constants.mockedCoursesList}
+									authorsList={constants.mockedAuthorsList}
+								/>
+							}
+						/>
+					</Route>
 				</Routes>
 			</BrowserRouter>
 		</>
