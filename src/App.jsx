@@ -10,6 +10,7 @@ import { userExists } from 'helpers/userHelper';
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import PrivateRoute from 'common/PrivateRoute/PrivateRoute';
+import NotFound from 'common/NotFound/NotFound';
 
 const App = () => {
 	const [coursesList, setCoursesList] = useState(constants.mockedCoursesList);
@@ -71,7 +72,7 @@ const App = () => {
 							}
 						/>
 					</Route>
-					<Route path='*' element={<p>There's nothing here: 404!</p>} />
+					<Route path='*' element={<NotFound />} />
 				</Routes>
 			</BrowserRouter>
 		</>
