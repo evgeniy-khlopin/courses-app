@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const PrivateRoute = ({ userExists, redirectPath = '/login', children }) => {
 	if (!userExists) {
@@ -7,6 +8,12 @@ const PrivateRoute = ({ userExists, redirectPath = '/login', children }) => {
 	}
 
 	return children ? children : <Outlet />;
+};
+
+PrivateRoute.propTypes = {
+	userExists: PropTypes.bool,
+	redirectPath: PropTypes.string,
+	children: PropTypes.element,
 };
 
 export default PrivateRoute;

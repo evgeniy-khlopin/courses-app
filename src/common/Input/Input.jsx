@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Input = ({
 	labelText,
@@ -27,5 +28,18 @@ const Input = ({
 		/>
 	</>
 );
+
+Input.propTypes = {
+	labelText: PropTypes.string,
+	type: PropTypes.string,
+	className: PropTypes.string,
+	id: PropTypes.string,
+	placeholderText: PropTypes.string,
+	onChange: PropTypes.func,
+	min: PropTypes.string,
+	max: PropTypes.string,
+	value: PropTypes.string,
+	name: PropTypes.string,
+};
 
 export default Input;

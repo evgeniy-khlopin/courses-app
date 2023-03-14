@@ -30,18 +30,11 @@ const App = () => {
 				<div className='mb-2'>
 					<Header />
 				</div>
-
 				<Routes>
-					<Route
-						element={
-							<PrivateRoute userExists={!userExists()} redirectPath='/' />
-						}
-					>
-						<Route path='/login' element={<Login />} />
-						<Route path='/registration' element={<Registration />} />
-					</Route>
+					<Route path='/login' element={<Login />} />
+					<Route path='/registration' element={<Registration />} />
 					<Route element={<PrivateRoute userExists={userExists()} />}>
-						<Route path='/' element={<Navigate to='/courses' />} />
+						<Route index element={<Navigate to='/courses' />} />
 						<Route
 							path='/courses'
 							element={

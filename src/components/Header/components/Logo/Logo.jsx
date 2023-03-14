@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Logo = ({ onClick }) => (
 	<img
@@ -9,5 +10,9 @@ const Logo = ({ onClick }) => (
 		onClick={onClick}
 	/>
 );
+
+Logo.propTypes = {
+	onClick: PropTypes.func,
+};
 
 export default Logo;

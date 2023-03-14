@@ -3,8 +3,9 @@ import Button from 'common/Button/Button';
 import './CourseCard.scss';
 import { convertDuration } from 'helpers/getCourseDuration';
 import { Link } from 'react-router-dom';
-import { formatDate } from 'helpers/formatDate';
+import { format } from 'date-fns';
 import { getAuthorNames } from 'helpers/getAuthorNames';
+import PropTypes from 'prop-types';
 
 const CourseCard = ({ courseData, authorsList }) => (
 	<div className='card'>
@@ -38,7 +39,9 @@ const CourseCard = ({ courseData, authorsList }) => (
 								<td>
 									<b>Created:</b>
 								</td>
-								<td>{formatDate(courseData.creationDate)}</td>
+								<td>
+									{format(new Date(courseData.creationDate), 'dd.MM.yyyy')}
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -53,5 +56,10 @@ const CourseCard = ({ courseData, authorsList }) => (
 		</div>
 	</div>
 );
+
+CourseCard.propTypes = {
+	courseData: PropTypes.object.isRequired,
+	authorsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default CourseCard;

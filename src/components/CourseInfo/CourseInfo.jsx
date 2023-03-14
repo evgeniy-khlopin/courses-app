@@ -1,10 +1,10 @@
 import NotFound from 'common/NotFound/NotFound';
-import { formatDate } from 'helpers/formatDate';
+import { format } from 'date-fns';
 import { getAuthorNames } from 'helpers/getAuthorNames';
 import { convertDuration } from 'helpers/getCourseDuration';
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const CourseInfo = ({ coursesList, authorsList }) => {
 	const { courseId } = useParams();
@@ -42,7 +42,7 @@ const CourseInfo = ({ coursesList, authorsList }) => {
 							<div className='row'>
 								<div>
 									<b>Created: </b>
-									{formatDate(course.creationDate)}
+									{format(new Date(course.creationDate), 'dd.MM.yyyy')}
 								</div>
 							</div>
 						</div>
@@ -55,8 +55,9 @@ const CourseInfo = ({ coursesList, authorsList }) => {
 	);
 };
 
-// CourseInfo.propTypes = {
-
-// };
+CourseInfo.propTypes = {
+	coursesList: PropTypes.arrayOf(PropTypes.object).isRequired,
+	authorsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default CourseInfo;

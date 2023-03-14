@@ -3,6 +3,7 @@ import CourseCard from './components/CourseCard/CourseCard';
 import Button from 'common/Button/Button';
 import SearchBar from './components/SearchBar/SearchBar';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Courses = ({ coursesList, authorsList }) => {
 	const [searchValue, setSearchValue] = useState('');
@@ -35,6 +36,11 @@ const Courses = ({ coursesList, authorsList }) => {
 			))}
 		</div>
 	);
+};
+
+Courses.propTypes = {
+	coursesList: PropTypes.arrayOf(PropTypes.object).isRequired,
+	authorsList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Courses;

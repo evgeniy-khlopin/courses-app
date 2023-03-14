@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import AuthorItem from './components/AuthorItem/AuthorItem';
 import { convertDuration } from 'helpers/getCourseDuration';
 import { useNavigate } from 'react-router-dom';
-import { formatDate } from 'helpers/formatDate';
+import { format } from 'date-fns';
+import PropTypes from 'prop-types';
 
 const CreateCourse = ({
 	authorsList,
@@ -63,7 +64,8 @@ const CreateCourse = ({
 	const handleCourseSubmit = () => {
 		const updatedCourse = course;
 		updatedCourse.id = crypto.randomUUID();
-		updatedCourse.creationDate = formatDate(new Date(), '/');
+		updatedCourse.creationDate = format(new Date(), 'MM/dd/yyyy');
+		console.log(updatedCourse.creationDate);
 		if (validateCourse(updatedCourse)) {
 			updateCoursesList((prevState) => [...prevState, updatedCourse]);
 			navigate('/courses');
@@ -193,6 +195,12 @@ const CreateCourse = ({
 			</div>
 		</div>
 	);
+};
+
+CreateCourse.propTypes = {
+	authorsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+	updateAuthorsList: PropTypes.func,
+	updateCoursesList: PropTypes.func,
 };
 
 export default CreateCourse;
