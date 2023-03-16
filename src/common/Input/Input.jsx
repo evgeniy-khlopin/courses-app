@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Input = ({
 	labelText,
 	type,
-	className,
+	className = 'form-control',
 	id,
 	placeholderText,
 	onChange,
@@ -17,7 +17,7 @@ const Input = ({
 		<label className='form-label'>{labelText}</label>
 		<input
 			type={type}
-			className={className || 'form-control'}
+			className={className}
 			id={id}
 			placeholder={placeholderText}
 			onChange={onChange}

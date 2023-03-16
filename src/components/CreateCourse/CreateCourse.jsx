@@ -199,8 +199,8 @@ const CreateCourse = ({
 
 CreateCourse.propTypes = {
 	authorsList: PropTypes.arrayOf(PropTypes.object).isRequired,
-	updateAuthorsList: PropTypes.func,
-	updateCoursesList: PropTypes.func,
+	updateAuthorsList: PropTypes.func.isRequired,
+	updateCoursesList: PropTypes.func.isRequired,
 };
 
 export default CreateCourse;
