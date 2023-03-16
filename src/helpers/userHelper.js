@@ -8,6 +8,7 @@ export const userExists = () => {
 
 export const logoutUser = () => {
 	localStorage.removeItem('bearerToken');
+	localStorage.removeItem('userName');
 };
 
 export const loginUser = async (loginData, _callback) => {

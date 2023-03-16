@@ -65,7 +65,6 @@ const CreateCourse = ({
 		const updatedCourse = course;
 		updatedCourse.id = crypto.randomUUID();
 		updatedCourse.creationDate = format(new Date(), 'MM/dd/yyyy');
-		console.log(updatedCourse.creationDate);
 		if (validateCourse(updatedCourse)) {
 			updateCoursesList((prevState) => [...prevState, updatedCourse]);
 			navigate('/courses');

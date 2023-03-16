@@ -1,6 +1,6 @@
 import Input from 'common/Input/Input';
 import Button from 'common/Button/Button';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from 'helpers/userHelper';
 
@@ -18,25 +18,13 @@ const Login = () => {
 		setLoginData({ ...loginData, [name]: value });
 	};
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (event) => {
+		event.preventDefault();
 		const response = await loginUser(loginData, () => {
 			navigate('/courses');
 		});
 		setErrors(response.errors);
 	};
-
-	useEffect(() => {
-		const listener = (event) => {
-			if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-				event.preventDefault();
-				handleSubmit();
-			}
-		};
-		document.addEventListener('keydown', listener);
-		return () => {
-			document.removeEventListener('keydown', listener);
-		};
-	});
 
 	return (
 		<div className='col-md-3  mx-auto mt-5'>
@@ -46,7 +34,7 @@ const Login = () => {
 			<div className='card d-flex'>
 				<div className='card-header'>Login</div>
 				<div className='card-body'>
-					<form>
+					<form onSubmit={handleSubmit}>
 						<div className='mb-3'>
 							<Input
 								name='email'
@@ -54,7 +42,7 @@ const Login = () => {
 								placeholderText='Enter email'
 								type='email'
 								onChange={handleInputChange}
-							></Input>
+							/>
 						</div>
 						<div className='mb-3'>
 							<Input
@@ -63,12 +51,12 @@ const Login = () => {
 								placeholderText='Enter password'
 								type='password'
 								onChange={handleInputChange}
-							></Input>
+							/>
+						</div>
+						<div className='d-grid col-6 mx-auto'>
+							<Button buttonText='Sign in' type='submit'></Button>
 						</div>
 					</form>
-					<div className='d-grid col-6 mx-auto'>
-						<Button buttonText='Sign in' onClick={handleSubmit}></Button>
-					</div>
 					<p className='small mt-2 text-center'>
 						Don't have an account yet? Sign up{' '}
 						<Link to='/registration'>here</Link>

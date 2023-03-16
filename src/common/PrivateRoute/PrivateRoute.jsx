@@ -13,7 +13,7 @@ const PrivateRoute = ({ redirectPath = '/login', children }) => {
 
 PrivateRoute.propTypes = {
 	redirectPath: PropTypes.string,
-	children: PropTypes.element.isRequired,
+	children: PropTypes.element,
 };
 
 export default PrivateRoute;
