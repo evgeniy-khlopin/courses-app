@@ -3,14 +3,16 @@ import Button from 'common/Button/Button';
 import React, { useState } from 'react';
 import AuthorItem from './components/AuthorItem/AuthorItem';
 import { convertDuration } from 'helpers/getCourseDuration';
+import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
+import PropTypes from 'prop-types';
 
 const CreateCourse = ({
 	authorsList,
 	updateAuthorsList,
 	updateCoursesList,
-	handleToggle,
 }) => {
+	const navigate = useNavigate();
 	const [authorName, setAuthorName] = useState('');
 	const [course, setCourse] = useState({
 		id: '',
@@ -62,10 +64,10 @@ const CreateCourse = ({
 	const handleCourseSubmit = () => {
 		const updatedCourse = course;
 		updatedCourse.id = crypto.randomUUID();
-		updatedCourse.creationDate = format(new Date(), 'dd/MM/yyyy');
+		updatedCourse.creationDate = format(new Date(), 'MM/dd/yyyy');
 		if (validateCourse(updatedCourse)) {
 			updateCoursesList((prevState) => [...prevState, updatedCourse]);
-			handleToggle(true);
+			navigate('/courses');
 		}
 	};
 
@@ -90,7 +92,7 @@ const CreateCourse = ({
 	};
 
 	return (
-		<div className='container-fluid'>
+		<div className='col-md-8 mx-auto'>
 			<div className='d-flex align-items-end mb-2'>
 				<div className='me-auto'>
 					<Input
@@ -192,6 +194,12 @@ const CreateCourse = ({
 			</div>
 		</div>
 	);
+};
+
+CreateCourse.propTypes = {
+	authorsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+	updateAuthorsList: PropTypes.func.isRequired,
+	updateCoursesList: PropTypes.func.isRequired,
 };
 
 export default CreateCourse;

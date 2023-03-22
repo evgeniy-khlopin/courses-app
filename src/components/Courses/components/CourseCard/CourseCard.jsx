@@ -2,12 +2,10 @@ import React from 'react';
 import Button from 'common/Button/Button';
 import './CourseCard.scss';
 import { convertDuration } from 'helpers/getCourseDuration';
+import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
-
-const authorNamesByIds = (authorsList, authorIds) => {
-	const authors = authorsList.filter((author) => authorIds.includes(author.id));
-	return authors.map((author) => author.name).join(', ');
-};
+import { getAuthorNames } from 'helpers/getAuthorNames';
+import PropTypes from 'prop-types';
 
 const CourseCard = ({ courseData, authorsList }) => (
 	<div className='card'>
@@ -28,7 +26,7 @@ const CourseCard = ({ courseData, authorsList }) => (
 									<b>Author:</b>
 								</td>
 								<td className='overflow'>
-									{authorNamesByIds(authorsList, courseData.authors)}
+									{getAuthorNames(authorsList, courseData.authors)}
 								</td>
 							</tr>
 							<tr>
@@ -49,12 +47,19 @@ const CourseCard = ({ courseData, authorsList }) => (
 					</table>
 
 					<div className='d-flex justify-content-center'>
-						<Button buttonText='Show Course' />
+						<Link to={`/courses/${courseData.id}`}>
+							<Button buttonText='Show Course' />
+						</Link>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 );
+
+CourseCard.propTypes = {
+	courseData: PropTypes.object.isRequired,
+	authorsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default CourseCard;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'common/Button/Button';
 import Input from 'common/Input/Input';
+import PropTypes from 'prop-types';
 
 const SearchBar = ({ onSearch }) => {
 	// TODO: Think about a better state variable name for the search value
@@ -30,6 +31,10 @@ const SearchBar = ({ onSearch }) => {
 			<Button className='btn btn-success' buttonText='Search' />
 		</form>
 	);
+};
+
+SearchBar.propTypes = {
+	onSearch: PropTypes.func,
 };
 
 export default SearchBar;

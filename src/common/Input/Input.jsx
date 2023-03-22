@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Input = ({
 	labelText,
 	type,
-	className,
+	className = 'form-control',
 	id,
 	placeholderText,
 	onChange,
@@ -16,7 +17,7 @@ const Input = ({
 		<label className='form-label'>{labelText}</label>
 		<input
 			type={type}
-			className={className || 'form-control'}
+			className={className}
 			id={id}
 			placeholder={placeholderText}
 			onChange={onChange}
@@ -27,5 +28,18 @@ const Input = ({
 		/>
 	</>
 );
+
+Input.propTypes = {
+	labelText: PropTypes.string,
+	type: PropTypes.string,
+	className: PropTypes.string,
+	id: PropTypes.string,
+	placeholderText: PropTypes.string,
+	onChange: PropTypes.func,
+	min: PropTypes.string,
+	max: PropTypes.string,
+	value: PropTypes.string,
+	name: PropTypes.string,
+};
 
 export default Input;

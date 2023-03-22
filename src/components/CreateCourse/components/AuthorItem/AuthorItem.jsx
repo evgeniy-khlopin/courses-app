@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from 'common/Button/Button';
+import PropTypes from 'prop-types';
 
 const AuthorItem = ({
 	handleClick,
@@ -20,5 +21,12 @@ const AuthorItem = ({
 		</div>
 	</div>
 );
+
+AuthorItem.propTypes = {
+	handleClick: PropTypes.func,
+	author: PropTypes.object.isRequired,
+	buttonClassName: PropTypes.string,
+	buttonText: PropTypes.string,
+};
 
 export default AuthorItem;
