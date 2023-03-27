@@ -1,17 +1,31 @@
 import Input from 'common/Input/Input';
 import Button from 'common/Button/Button';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { registerUser } from 'helpers/userHelper';
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from 'store/user/reducer';
+import { getUserSelector } from 'store/user/selectors';
 
 const Registration = () => {
 	const navigate = useNavigate();
-	const [errors, setErrors] = useState([]);
+	const dispatch = useDispatch();
 	const [userData, setUserData] = useState({
 		name: '',
 		email: '',
 		password: '',
 	});
+	const user = useSelector(getUserSelector);
+
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		dispatch(register(userData));
+	};
+
+	useEffect(() => {
+		if (user.errors.length === 0 && user.successful) {
+			navigate('/login');
+		}
+	}, [user, navigate]);
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -19,20 +33,13 @@ const Registration = () => {
 		setUserData({ ...userData, [name]: value });
 	};
 
-	const handleSubmit = async (event) => {
-		event.preventDefault();
-		const response = await registerUser(userData, () => navigate('/login'));
-		setErrors(response.errors);
-	};
-
 	return (
 		<div className='col-md-3 mx-auto mt-5'>
-			{errors.map((error, index) => (
+			{user.errors.map((error, index) => (
 				<div className='alert alert-danger mb-2' key={index}>
 					{error}
 				</div>
 			))}
-
 			<div className='card d-flex'>
 				<div className='card-header'>Registration</div>
 				<div className='card-body'>

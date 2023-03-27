@@ -1,16 +1,31 @@
 import Input from 'common/Input/Input';
 import Button from 'common/Button/Button';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginUser } from 'helpers/userHelper';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, logout } from 'store/user/reducer';
+import { getUserSelector } from 'store/user/selectors';
+import { userExists } from 'helpers/userHelper';
 
 const Login = () => {
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const [errors, setErrors] = useState([]);
 	const [loginData, setLoginData] = useState({
 		email: '',
 		password: '',
 	});
+	const user = useSelector(getUserSelector);
+	const [showError, setShowError] = useState(false);
+
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+		await dispatch(login(loginData));
+	};
+
+	useEffect(() => {
+		if (userExists()) navigate('/courses');
+		if (!user.loginSuccessful) setShowError(true);
+	}, [user, navigate, dispatch]);
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -18,17 +33,13 @@ const Login = () => {
 		setLoginData({ ...loginData, [name]: value });
 	};
 
-	const handleSubmit = async (event) => {
-		event.preventDefault();
-		const response = await loginUser(loginData, () => {
-			navigate('/courses');
-		});
-		setErrors(response.errors);
+	const handleLinkClick = () => {
+		dispatch(logout());
 	};
 
 	return (
 		<div className='col-md-3  mx-auto mt-5'>
-			{errors.length > 0 && (
+			{showError && (
 				<div className='alert alert-danger mb-2'>Wrong email or password</div>
 			)}
 			<div className='card d-flex'>
@@ -59,7 +70,9 @@ const Login = () => {
 					</form>
 					<p className='small mt-2 text-center'>
 						Don't have an account yet? Sign up{' '}
-						<Link to='/registration'>here</Link>
+						<Link to='/registration' onClick={handleLinkClick}>
+							here
+						</Link>
 					</p>
 				</div>
 			</div>

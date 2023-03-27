@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Logo from './components/Logo/Logo';
 import Button from 'common/Button/Button';
 import { Link, useNavigate } from 'react-router-dom';
-import { userName, userExists, logoutUser } from 'helpers/userHelper';
+import { useDispatch, useSelector } from 'react-redux';
+import { currentUser, logout } from 'store/user/reducer';
+import { userExists } from 'helpers/userHelper';
+import { getUserSelector } from 'store/user/selectors';
 
 const Header = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const user = useSelector(getUserSelector);
 
-	const logout = () => {
-		logoutUser();
+	useEffect(() => {
+		if (userExists()) dispatch(currentUser());
+	}, [user.isAuth, dispatch]);
+
+	const logoutHandler = async () => {
+		await dispatch(logout());
 		navigate('/login');
 	};
 
@@ -18,13 +27,13 @@ const Header = () => {
 				<Link to='/'>
 					<Logo />
 				</Link>
-				{userExists() && (
+				{user.isAuth && (
 					<div className='d-flex justify-content-end'>
-						<div className='navbar-brand'>{userName()} 🫡</div>
+						<div className='navbar-brand'>{user.name} 🫡</div>
 						<Button
 							buttonText='Logout'
 							className='btn btn-outline-secondary'
-							onClick={logout}
+							onClick={logoutHandler}
 						/>
 					</div>
 				)}
