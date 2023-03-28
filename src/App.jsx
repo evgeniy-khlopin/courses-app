@@ -1,27 +1,28 @@
 import CreateCourse from 'components/CreateCourse/CreateCourse';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import Courses from './components/Courses/Courses';
 import Header from './components/Header/Header';
-import * as constants from './constants';
 import Registration from './components/Registration/Registration';
 import Login from './components/Login/Login';
 import CourseInfo from 'components/CourseInfo/CourseInfo';
-
 import { Routes, Route, Navigate } from 'react-router-dom';
 import PrivateRoute from 'common/PrivateRoute/PrivateRoute';
 import NotFound from 'common/NotFound/NotFound';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCourses } from 'store/courses/reducer';
+import { getAuthors } from 'store/authors/reducer';
+import { getCoursesSelector } from 'store/courses/selectors';
+import { getAuthorsSelector } from 'store/authors/selectors';
 
 const App = () => {
-	const [coursesList, setCoursesList] = useState(constants.mockedCoursesList);
-	const [authorsList, setAuthorsList] = useState(constants.mockedAuthorsList);
+	const coursesList = useSelector(getCoursesSelector);
+	const authorsList = useSelector(getAuthorsSelector);
+	const dispatch = useDispatch();
 
-	const updateCoursesList = (courses) => {
-		setCoursesList(courses);
-	};
-
-	const updateAuthorsList = (authors) => {
-		setAuthorsList(authors);
-	};
+	useEffect(() => {
+		dispatch(getCourses());
+		dispatch(getAuthors());
+	}, [dispatch]);
 
 	return (
 		<>
@@ -29,17 +30,14 @@ const App = () => {
 				<Header />
 			</div>
 			<Routes>
-				<Route path='/login' element={<Login />} />
+				<Route index path='/login' element={<Login />} />
 				<Route path='/registration' element={<Registration />} />
 				<Route element={<PrivateRoute />}>
 					<Route index element={<Navigate to='/courses' />} />
 					<Route
 						path='/courses'
 						element={
-							<Courses
-								authorsList={constants.mockedAuthorsList}
-								coursesList={coursesList}
-							/>
+							<Courses authorsList={authorsList} coursesList={coursesList} />
 						}
 					/>
 					<Route
@@ -48,8 +46,6 @@ const App = () => {
 							<CreateCourse
 								coursesList={coursesList}
 								authorsList={authorsList}
-								updateCoursesList={updateCoursesList}
-								updateAuthorsList={updateAuthorsList}
 							/>
 						}
 					/>

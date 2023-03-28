@@ -4,12 +4,10 @@ import Input from 'common/Input/Input';
 import PropTypes from 'prop-types';
 
 const SearchBar = ({ onSearch }) => {
-	// TODO: Think about a better state variable name for the search value
 	const [searchQuery, setSearchQuery] = useState('');
 
 	const handleChange = (event) => {
 		event.preventDefault();
-		// Submit empty form without clicking the search button
 		if (event.target.value === '') onSearch('');
 		setSearchQuery(event.target.value);
 	};

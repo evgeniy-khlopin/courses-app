@@ -4,21 +4,18 @@ import React, { useState } from 'react';
 import AuthorItem from './components/AuthorItem/AuthorItem';
 import { convertDuration } from 'helpers/getCourseDuration';
 import { useNavigate } from 'react-router-dom';
-import { format } from 'date-fns';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { createAuthor } from 'store/authors/reducer';
+import { createCourse } from 'store/courses/reducer';
 
-const CreateCourse = ({
-	authorsList,
-	updateAuthorsList,
-	updateCoursesList,
-}) => {
+const CreateCourse = ({ authorsList }) => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const [authorName, setAuthorName] = useState('');
 	const [course, setCourse] = useState({
-		id: '',
 		title: '',
 		description: '',
-		creationDate: '',
 		duration: 0,
 		authors: [],
 	});
@@ -41,16 +38,16 @@ const CreateCourse = ({
 		}));
 	};
 
-	const validateCourse = (updatedCourse) => {
-		const entries = Object.entries(updatedCourse).filter(([k, v], i) => !v);
+	const validateCourse = () => {
+		const entries = Object.entries(course).filter(([k, v], i) => !v);
 		let error = '';
 		if (entries.length !== 0) {
 			error = 'Please fill in all fields';
-		} else if (updatedCourse.authors.length === 0) {
+		} else if (course.authors.length === 0) {
 			error = 'At least one author should be selected';
-		} else if (updatedCourse.title.length < 2) {
+		} else if (course.title.length < 2) {
 			error = 'Title must be at least 2 characters';
-		} else if (updatedCourse.description.length < 2) {
+		} else if (course.description.length < 2) {
 			error = 'Description must be at least 2 characters';
 		}
 
@@ -62,19 +59,17 @@ const CreateCourse = ({
 	};
 
 	const handleCourseSubmit = () => {
-		const updatedCourse = course;
-		updatedCourse.id = crypto.randomUUID();
-		updatedCourse.creationDate = format(new Date(), 'MM/dd/yyyy');
-		if (validateCourse(updatedCourse)) {
-			updateCoursesList((prevState) => [...prevState, updatedCourse]);
+		if (validateCourse(course)) {
+			dispatch(createCourse(course));
 			navigate('/courses');
 		}
 	};
 
 	const handleCourseInputChange = (event) => {
 		const { name, value } = event.target;
-
-		setCourse({ ...course, [name]: value });
+		let courseData = { ...course, [name]: value };
+		if (name === 'duration') courseData.duration = Number(value);
+		setCourse(courseData);
 	};
 
 	const handleAuthorInputChange = (event) => {
@@ -83,8 +78,7 @@ const CreateCourse = ({
 
 	const handleAuthorSubmit = () => {
 		if (authorName.length > 2) {
-			const updatedAuthor = { id: crypto.randomUUID(), name: authorName };
-			updateAuthorsList([...authorsList, updatedAuthor]);
+			dispatch(createAuthor({ name: authorName }));
 			setAuthorName('');
 		} else {
 			alert('Author name should be at least 2 characters');
@@ -198,8 +192,6 @@ const CreateCourse = ({
 
 CreateCourse.propTypes = {
 	authorsList: PropTypes.arrayOf(PropTypes.object).isRequired,
-	updateAuthorsList: PropTypes.func.isRequired,
-	updateCoursesList: PropTypes.func.isRequired,
 };
 
 export default CreateCourse;
