@@ -66,10 +66,10 @@ const CreateCourse = ({ authorsList }) => {
 	};
 
 	const handleCourseInputChange = (event) => {
-		let { name, value } = event.target;
-
-		if (name === 'duration') value = Number(value);
-		setCourse({ ...course, [name]: value });
+		const { name, value } = event.target;
+		let courseData = { ...course, [name]: value };
+		if (name === 'duration') courseData.duration = Number(value);
+		setCourse(courseData);
 	};
 
 	const handleAuthorInputChange = (event) => {

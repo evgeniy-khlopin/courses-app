@@ -24,19 +24,17 @@ export const userReducer = (state = userInitialState, action) => {
 					loginSuccessful: true,
 					isAuth: true,
 				};
-			} else {
-				return { ...state, loginSuccessful: false };
 			}
+			return { ...state, loginSuccessful: false };
 		case types.REGISTER:
 			if (action.payload.successful) {
 				return { ...state, successful: true };
-			} else {
-				return {
-					...state,
-					successful: false,
-					errors: action.payload.errors,
-				};
 			}
+			return {
+				...state,
+				successful: false,
+				errors: action.payload.errors,
+			};
 		case types.LOGOUT:
 			return userInitialState;
 		case types.CURRENT_USER:

@@ -17,9 +17,10 @@ const Login = () => {
 	const user = useSelector(getUserSelector);
 	const [showError, setShowError] = useState(false);
 
-	const handleSubmit = async (event) => {
+	const handleSubmit = (event) => {
 		event.preventDefault();
-		await dispatch(login(loginData));
+		dispatch(logout());
+		dispatch(login(loginData));
 	};
 
 	useEffect(() => {
@@ -65,7 +66,7 @@ const Login = () => {
 							/>
 						</div>
 						<div className='d-grid col-6 mx-auto'>
-							<Button buttonText='Sign in' type='submit'></Button>
+							<Button buttonText='Sign in' type='submit' />
 						</div>
 					</form>
 					<p className='small mt-2 text-center'>

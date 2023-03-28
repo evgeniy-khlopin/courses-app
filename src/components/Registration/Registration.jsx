@@ -3,7 +3,7 @@ import Button from 'common/Button/Button';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { register } from 'store/user/reducer';
+import { logout, register } from 'store/user/reducer';
 import { getUserSelector } from 'store/user/selectors';
 
 const Registration = () => {
@@ -18,6 +18,7 @@ const Registration = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
+		dispatch(logout());
 		dispatch(register(userData));
 	};
 
@@ -71,7 +72,7 @@ const Registration = () => {
 							/>
 						</div>
 						<div className='d-grid col-6 mx-auto'>
-							<Button buttonText='Sign up' type='submit'></Button>
+							<Button buttonText='Sign up' type='submit' />
 						</div>
 					</form>
 					<p className='small mt-2 text-center'>
