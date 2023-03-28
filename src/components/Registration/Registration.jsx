@@ -3,7 +3,7 @@ import Button from 'common/Button/Button';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout, register } from 'store/user/reducer';
+import { register, resetUser } from 'store/user/reducer';
 import { getUserSelector } from 'store/user/selectors';
 
 const Registration = () => {
@@ -18,7 +18,7 @@ const Registration = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		dispatch(logout());
+		dispatch(resetUser());
 		dispatch(register(userData));
 	};
 

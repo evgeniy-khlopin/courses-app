@@ -19,3 +19,7 @@ export const getCurrentUserAction = (payload) => ({
 	type: types.CURRENT_USER,
 	payload,
 });
+
+export const resetUserAction = () => ({
+	type: types.RESET_USER,
+});

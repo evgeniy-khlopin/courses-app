@@ -36,6 +36,7 @@ export const userReducer = (state = userInitialState, action) => {
 				errors: action.payload.errors,
 			};
 		case types.LOGOUT:
+		case types.RESET_USER:
 			return userInitialState;
 		case types.CURRENT_USER:
 			return {
@@ -70,5 +71,11 @@ export const logout = () => {
 export const currentUser = () => {
 	return async (dispatch) => {
 		dispatch(actions.getCurrentUserAction(await service.currentUser()));
+	};
+};
+
+export const resetUser = () => {
+	return async (dispatch) => {
+		dispatch(actions.resetUserAction());
 	};
 };
