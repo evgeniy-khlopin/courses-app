@@ -6,11 +6,14 @@ import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { getAuthorNames } from 'helpers/getAuthorNames';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { deleteCourse } from 'store/courses/reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteCourse } from 'store/courses/thunk';
+import { getUserSelector } from 'store/user/selectors';
+import { isAdmin } from 'helpers/userHelper';
 
 const CourseCard = ({ courseData, authorsList }) => {
 	const dispatch = useDispatch();
+	const user = useSelector(getUserSelector);
 
 	const handleDelete = (courseId) => {
 		if (window.confirm('Are you sure you want to delete this course?')) {
@@ -64,15 +67,22 @@ const CourseCard = ({ courseData, authorsList }) => {
 									buttonText='Show Course'
 								/>
 							</Link>
-							<Button className='btn btn-sm btn-secondary'>
-								<i className='bi bi-pencil-fill' />
-							</Button>
-							<Button
-								className='btn btn-sm btn-danger'
-								onClick={() => handleDelete(courseData.id)}
-							>
-								<i className='bi bi-trash-fill' />
-							</Button>
+
+							{isAdmin(user) && (
+								<div className='d-flex gap-2'>
+									<Link to={`/courses/${courseData.id}/edit`}>
+										<Button className='btn btn-sm btn-secondary'>
+											<i className='bi bi-pencil-fill' />
+										</Button>
+									</Link>
+									<Button
+										className='btn btn-sm btn-danger'
+										onClick={() => handleDelete(courseData.id)}
+									>
+										<i className='bi bi-trash-fill' />
+									</Button>
+								</div>
+							)}
 						</div>
 					</div>
 				</div>

@@ -1,24 +1,35 @@
 import Input from 'common/Input/Input';
 import Button from 'common/Button/Button';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AuthorItem from './components/AuthorItem/AuthorItem';
 import { convertDuration } from 'helpers/getCourseDuration';
-import { useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { createAuthor } from 'store/authors/reducer';
-import { createCourse } from 'store/courses/reducer';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { createAuthor } from 'store/authors/thunk';
+import { createCourse, updateCourse } from 'store/courses/thunk';
+import { getCoursesSelector } from 'store/courses/selectors';
+import { getAuthorsSelector } from 'store/authors/selectors';
 
-const CreateCourse = ({ authorsList }) => {
+const CourseForm = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [authorName, setAuthorName] = useState('');
+	const { courseId } = useParams();
+	const authorsList = useSelector(getAuthorsSelector);
 	const [course, setCourse] = useState({
 		title: '',
 		description: '',
-		duration: 0,
+		duration: '',
 		authors: [],
 	});
+
+	const existingCourse =
+		useSelector(getCoursesSelector).find((course) => course.id === courseId) ||
+		course;
+
+	useEffect(() => {
+		if (existingCourse) setCourse(existingCourse);
+	}, [existingCourse]);
 
 	const availableAuthors = () => {
 		return authorsList.filter((author) => !course.authors.includes(author.id));
@@ -65,6 +76,13 @@ const CreateCourse = ({ authorsList }) => {
 		}
 	};
 
+	const handleCourseUpdate = () => {
+		if (validateCourse(course)) {
+			dispatch(updateCourse(course));
+			navigate('/courses');
+		}
+	};
+
 	const handleCourseInputChange = (event) => {
 		const { name, value } = event.target;
 		let courseData = { ...course, [name]: value };
@@ -94,10 +112,15 @@ const CreateCourse = ({ authorsList }) => {
 						placeholderText='Enter title...'
 						name='title'
 						onChange={handleCourseInputChange}
+						value={course.title}
 					/>
 				</div>
 				<div>
-					<Button buttonText='Create Course' onClick={handleCourseSubmit} />
+					{courseId ? (
+						<Button buttonText='Update Course' onClick={handleCourseUpdate} />
+					) : (
+						<Button buttonText='Create Course' onClick={handleCourseSubmit} />
+					)}
 				</div>
 			</div>
 
@@ -110,6 +133,7 @@ const CreateCourse = ({ authorsList }) => {
 					placeholder='Enter description'
 					name='description'
 					onChange={handleCourseInputChange}
+					value={course.description}
 				/>
 			</div>
 
@@ -157,6 +181,7 @@ const CreateCourse = ({ authorsList }) => {
 						min='1'
 						max='1439'
 						name='duration'
+						value={course.duration}
 					/>
 					<h4 className='mt-2'>Duration: {convertDuration(course.duration)}</h4>
 				</div>
@@ -190,8 +215,4 @@ const CreateCourse = ({ authorsList }) => {
 	);
 };
 
-CreateCourse.propTypes = {
-	authorsList: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
-
-export default CreateCourse;
+export default CourseForm;

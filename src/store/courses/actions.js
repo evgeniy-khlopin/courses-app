@@ -14,3 +14,8 @@ export const createCourseAction = (payload) => ({
 	type: types.CREATE_COURSE,
 	payload,
 });
+
+export const updateCourseAction = (payload) => ({
+	type: types.UPDATE_COURSE,
+	payload,
+});

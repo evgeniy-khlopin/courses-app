@@ -1,5 +1,3 @@
-import * as service from 'services/userService.js';
-import * as actions from './actions.js';
 import * as types from './types.js';
 
 export const userInitialState = {
@@ -10,6 +8,7 @@ export const userInitialState = {
 	successful: false,
 	loginSuccessful: true,
 	errors: [],
+	role: '',
 };
 
 export const userReducer = (state = userInitialState, action) => {
@@ -44,38 +43,9 @@ export const userReducer = (state = userInitialState, action) => {
 				name: action.payload.result.name,
 				email: action.payload.result.email,
 				isAuth: action.payload.successful,
+				role: action.payload.result.role,
 			};
 		default:
 			return state;
 	}
-};
-
-export const login = (userData) => {
-	return async (dispatch) => {
-		dispatch(actions.loginAction(await service.loginUser(userData)));
-	};
-};
-
-export const register = (userData) => {
-	return async (dispatch) => {
-		dispatch(actions.registerAction(await service.registerUser(userData)));
-	};
-};
-
-export const logout = () => {
-	return async (dispatch) => {
-		dispatch(actions.logoutAction(await service.logoutUser()));
-	};
-};
-
-export const currentUser = () => {
-	return async (dispatch) => {
-		dispatch(actions.getCurrentUserAction(await service.currentUser()));
-	};
-};
-
-export const resetUser = () => {
-	return async (dispatch) => {
-		dispatch(actions.resetUserAction());
-	};
 };

@@ -1,20 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Logo from './components/Logo/Logo';
 import Button from 'common/Button/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { currentUser, logout } from 'store/user/reducer';
-import { userExists } from 'helpers/userHelper';
+import { logout } from 'store/user/thunk';
 import { getUserSelector } from 'store/user/selectors';
 
 const Header = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const user = useSelector(getUserSelector);
-
-	useEffect(() => {
-		if (userExists()) dispatch(currentUser());
-	}, [user.isAuth, dispatch]);
 
 	const logoutHandler = async () => {
 		await dispatch(logout());

@@ -1,5 +1,8 @@
 ### [GitHub Pages 🚀](https://evgeniy-khlopin.github.io/courses-app/)
 
+# Installation
+Copy `.env.example` into the project root and rename it to `.env`
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

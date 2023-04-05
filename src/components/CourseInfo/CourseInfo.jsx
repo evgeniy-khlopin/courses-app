@@ -4,11 +4,14 @@ import { getAuthorNames } from 'helpers/getAuthorNames';
 import { convertDuration } from 'helpers/getCourseDuration';
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { getCoursesSelector } from 'store/courses/selectors';
+import { getAuthorsSelector } from 'store/authors/selectors';
 
-const CourseInfo = ({ coursesList, authorsList }) => {
+const CourseInfo = () => {
 	const { courseId } = useParams();
-	const course = coursesList.find((c) => c.id === courseId);
+	const authorsList = useSelector(getAuthorsSelector);
+	const course = useSelector(getCoursesSelector).find((c) => c.id === courseId);
 
 	return (
 		<div className='row'>
@@ -53,11 +56,6 @@ const CourseInfo = ({ coursesList, authorsList }) => {
 			)}
 		</div>
 	);
-};
-
-CourseInfo.propTypes = {
-	coursesList: PropTypes.arrayOf(PropTypes.object).isRequired,
-	authorsList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default CourseInfo;
