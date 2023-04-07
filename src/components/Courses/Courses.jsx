@@ -3,12 +3,19 @@ import CourseCard from './components/CourseCard/CourseCard';
 import Button from 'common/Button/Button';
 import SearchBar from './components/SearchBar/SearchBar';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { isAdmin } from 'helpers/userHelper';
+import { useSelector } from 'react-redux';
+import { getUserSelector } from 'store/user/selectors';
+import { getAuthorsSelector } from 'store/authors/selectors';
+import { getCoursesSelector } from 'store/courses/selectors';
 
-const Courses = ({ coursesList, authorsList }) => {
+const Courses = () => {
 	const [searchValue, setSearchValue] = useState('');
 
 	const searchSubmitHandler = (value) => setSearchValue(value);
+	const user = useSelector(getUserSelector);
+	const authorsList = useSelector(getAuthorsSelector);
+	const coursesList = useSelector(getCoursesSelector);
 
 	const searchCourse = () => {
 		if (searchValue === '') return coursesList;
@@ -23,11 +30,13 @@ const Courses = ({ coursesList, authorsList }) => {
 		<div className='container-fluid col-md-8'>
 			<nav className='navbar mb-4 border-bottom pb-3'>
 				<SearchBar onSearch={searchSubmitHandler} />
-				<div className='d-flex'>
-					<Link to='/courses/add'>
-						<Button buttonText='Add new course' />
-					</Link>
-				</div>
+				{isAdmin(user) && (
+					<div className='d-flex'>
+						<Link to='/courses/add'>
+							<Button buttonText='Add new course' />
+						</Link>
+					</div>
+				)}
 			</nav>
 			{searchCourse().map((course, index) => (
 				<div className='mb-3' key={index}>
@@ -36,11 +45,6 @@ const Courses = ({ coursesList, authorsList }) => {
 			))}
 		</div>
 	);
-};
-
-Courses.propTypes = {
-	coursesList: PropTypes.arrayOf(PropTypes.object).isRequired,
-	authorsList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Courses;
