@@ -24,7 +24,7 @@ const Header = () => {
 				</Link>
 				{user.isAuth && (
 					<div className='d-flex justify-content-end'>
-						<div className='navbar-brand'>{user.name} 🫡</div>
+						<div className='navbar-brand'>{user.name}</div>
 						<Button
 							buttonText='Logout'
 							className='btn btn-outline-secondary'

@@ -5,3 +5,10 @@ export default configureStore({
 	reducer: rootReducer,
 	devTools: true,
 });
+
+export const setupStore = (preloadedState) => {
+	return configureStore({
+		reducer: rootReducer,
+		preloadedState,
+	});
+};

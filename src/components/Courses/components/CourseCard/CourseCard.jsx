@@ -27,7 +27,9 @@ const CourseCard = ({ courseData, authorsList }) => {
 				<div className='col-md-9 bg-body-tertiary'>
 					<div className='card-body'>
 						<h5 className='card-title'>{courseData.title}</h5>
-						<p className='card-text'>{courseData.description}</p>
+						<p data-testid='course-description' className='card-text'>
+							{courseData.description}
+						</p>
 					</div>
 				</div>
 				<div className='vr' />
